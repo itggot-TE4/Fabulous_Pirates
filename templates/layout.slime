@@ -6,11 +6,11 @@ html
     body
     header
         h2 What´s Their Face v2
-        = if user do
-            form action="/users/logout" method="post"
-                button type="submit" Log Out
-        - else
-            button
-                a href="/login"
+        / = if user do
+        /     form action="/users/logout" method="post"
+        /         button type="submit" Log Out
+        / - else
+        /     button
+        /         a href="/login"
     .wrapper
         = template

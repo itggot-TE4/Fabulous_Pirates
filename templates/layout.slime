@@ -1,7 +1,16 @@
 doctype html
 html
     head
-        title Welcome to Pluggy
-        link rel="stylesheet" type="text/css" href="/pluggy.css"
+        title What´s Their Face v2
+        link rel="stylesheet" type="text/css" href="/main.css"
     body
-    = template
+    header
+        h2 What´s Their Face v2
+        = if user do
+            form action="/users/logout" method="post"
+                button type="submit" Log Out
+        - else
+            button
+                a href="/login"
+    .wrapper
+        = template

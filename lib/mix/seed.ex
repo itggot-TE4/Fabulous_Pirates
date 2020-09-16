@@ -11,20 +11,31 @@ defmodule Mix.Tasks.Seed do
 
   defp drop_tables() do
     IO.puts("Dropping tables")
-    Postgrex.query!(DB, "DROP TABLE IF EXISTS fruits", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "DROP TABLE IF EXISTS grupper", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS users", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "DROP TABLE IF EXISTS skolor", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "DROP TABLE IF EXISTS elever", [], pool: DBConnection.ConnectionPool)
   end
 
   defp create_tables() do
     IO.puts("Creating tables")
-    Postgrex.query!(DB, "Create TABLE fruits (id SERIAL, name VARCHAR(255) NOT NULL, tastiness INTEGER NOT NULL)", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "Create TABLE Users (id SERIAL, name VARCHAR(255) NOT NULL, type VARCHAR(255) NOT NULL)", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "Create TABLE Skolor (id SERIAL, name VARCHAR(255) NOT NULL)", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "Create TABLE Grupper (id SERIAL, name VARCHAR(255) NOT NULL)", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "Create TABLE Elever (id SERIAL, name VARCHAR(255) NOT NULL, grupp VARCHAR(255) NOT NULL)", [], pool: DBConnection.ConnectionPool)
   end
 
   defp seed_data() do
     IO.puts("Seeding data")
-    Postgrex.query!(DB, "INSERT INTO fruits(name, tastiness) VALUES($1, $2)", ["Apple", 5], pool: DBConnection.ConnectionPool)
-    Postgrex.query!(DB, "INSERT INTO fruits(name, tastiness) VALUES($1, $2)", ["Pear", 4], pool: DBConnection.ConnectionPool)
-    Postgrex.query!(DB, "INSERT INTO fruits(name, tastiness) VALUES($1, $2)", ["Banana", 7], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "INSERT INTO Users(name, type) VALUES($1, $2)", ["Admin", "Admin"], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "INSERT INTO Users(name, type) VALUES($1, $2)",["Lärare", "Lärare"], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "INSERT INTO Skolor(name) VALUES($1)",["Nti Gymnasiet"], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "INSERT INTO Skolor(name) VALUES($1)",["WisbyGymnasiet"], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "INSERT INTO GRUPPER(name) VALUES($1)",["TE4"], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "INSERT INTO GRUPPER(name) VALUES($1)",["TE3"], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "INSERT INTO Elever(name, grupp) VALUES($1, $2)",["Jonathan", "TE4"], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "INSERT INTO Elever(name, grupp) VALUES($1, $2)",["Mahdi", "TE4"], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "INSERT INTO Elever(name, grupp) VALUES($1, $2)",["Jacob", "TE3"], pool: DBConnection.ConnectionPool)
   end
 
 end

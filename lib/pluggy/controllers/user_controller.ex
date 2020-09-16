@@ -4,16 +4,15 @@ defmodule Pluggy.UserController do
   import Pluggy.Template, only: [srender: 1]
 
   def login(conn, params) do
-    IO.puts("#################\n\n\n login \n\n\n ##################")
-    username = params["username"]
-    password = params["pwd"]
+    username = params["name"]
+    password = params["password"]
 
      #Bör antagligen flytta SQL-anropet till user-model (t.ex User.find)
-
     result =
-      Postgrex.query!(DB, "SELECT id, password_hash FROM users WHERE name = $1", [username],
+      Postgrex.query!(DB, "SELECT id, password_hash FROM users WHERE username = $1", [username],
         pool: DBConnection.ConnectionPool
       )
+
 
     case result.num_rows do
       # no user with that username

@@ -1,8 +1,10 @@
 defmodule Pluggy.UserController do
   # import Pluggy.Template, only: [render: 2] #det här exemplet renderar inga templates
   import Plug.Conn, only: [send_resp: 3]
+  import Pluggy.Template, only: [srender: 1]
 
   def login(conn, params) do
+    IO.puts("#################\n\n\n login \n\n\n ##################")
     username = params["username"]
     password = params["pwd"]
 
@@ -42,6 +44,11 @@ defmodule Pluggy.UserController do
   #  	# Postgrex.query!(DB, "INSERT INTO users (username, password_hash) VALUES ($1, $2)", [params["username"], hashed_password], [pool: DBConnection.ConnectionPool])
   #  	# redirect(conn, "/fruits")
   # end
+
+  def login_form(conn) do
+
+    send_resp(conn, 200, srender("users/login"))
+  end
 
   defp redirect(conn, url),
     do: Plug.Conn.put_resp_header(conn, "location", url) |> send_resp(303, "")

@@ -1,0 +1,4 @@
+h1 #{Classs.edit("/class/#{class.id}/edit")}
+form action="/class/#{class.id}/edit" method="post" 
+  input name="name" type="text" value="<%= class.name %>" /
+  button type="submit"  Update

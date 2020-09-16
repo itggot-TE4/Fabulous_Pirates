@@ -1,5 +1,5 @@
 defmodule Pluggy.User do
-  defstruct(id: nil, username: "")
+  defstruct(id: nil, username: "", img_path: "")
 
   alias Pluggy.User
 
@@ -12,5 +12,11 @@ defmodule Pluggy.User do
 
   def to_struct([[id, username]]) do
     %User{id: id, username: username}
+  end
+
+  def save_img(params) do
+    name = "#{params["file"].filename ++ to_string(DateTime.utc_now)}"
+    File.rename(params["file"].path, "priv/static/uploads/#{name}")
+    name
   end
 end

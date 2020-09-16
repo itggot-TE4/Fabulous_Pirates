@@ -9,6 +9,7 @@ defmodule Pluggy.UserController do
     password = params["pwd"]
 
      #Bör antagligen flytta SQL-anropet till user-model (t.ex User.find)
+
     result =
       Postgrex.query!(DB, "SELECT id, password_hash FROM users WHERE username = $1", [username],
         pool: DBConnection.ConnectionPool
@@ -30,6 +31,8 @@ defmodule Pluggy.UserController do
           redirect(conn, "/fruits")
         end
     end
+
+
   end
 
   def logout(conn) do
@@ -46,7 +49,7 @@ defmodule Pluggy.UserController do
   # end
 
   def login_form(conn) do
-
+    # IO.puts(conn)
     send_resp(conn, 200, srender("users/login"))
   end
 

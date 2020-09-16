@@ -19,7 +19,7 @@ defmodule Mix.Tasks.Seed do
 
   defp create_tables() do
     IO.puts("Creating tables")
-    Postgrex.query!(DB, "Create TABLE Users (id SERIAL, name VARCHAR(255) NOT NULL, username VARCHAR(255) UNIQUE NOT NULL, type VARCHAR(255) NOT NULL, password_hash VARCHAR(255) NOT NULL)", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "Create TABLE Users (id SERIAL, name VARCHAR(255) NOT NULL, username VARCHAR(255) UNIQUE NOT NULL, type VARCHAR(255) NOT NULL, password_hash VARCHAR(255) NOT NULL, img VARCHAR(255)))", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "Create TABLE Schools (id SERIAL, name VARCHAR(255) NOT NULL)", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "Create TABLE Classes (id SERIAL, name VARCHAR(255) NOT NULL)", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "Create TABLE Students (id SERIAL, name VARCHAR(255) NOT NULL, class VARCHAR(255) NOT NULL)", [], pool: DBConnection.ConnectionPool)

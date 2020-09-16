@@ -6,11 +6,10 @@ html
     body
     header
         h2 What´s Their Face v2
-        / = if user do
-        /     form action="/users/logout" method="post"
-        /         button type="submit" Log Out
-        / - else
-        /     button
-        /         a href="/login"
+        / TODO: Add if statement checking if user is signed in or not.
+        form action="/users/logout" method="post"
+            button type="submit" Log Out
+        button
+            a href="/login" Login
     .wrapper
         = template

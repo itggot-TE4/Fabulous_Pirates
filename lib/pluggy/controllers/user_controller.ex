@@ -11,7 +11,7 @@ defmodule Pluggy.UserController do
      #Bör antagligen flytta SQL-anropet till user-model (t.ex User.find)
 
     result =
-      Postgrex.query!(DB, "SELECT id, password_hash FROM users WHERE username = $1", [username],
+      Postgrex.query!(DB, "SELECT id, password_hash FROM users WHERE name = $1", [username],
         pool: DBConnection.ConnectionPool
       )
 

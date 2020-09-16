@@ -13,7 +13,7 @@ defmodule Pluggy.FruitController do
     current_user =
       case session_user do
         nil -> nil
-        _ -> nil#User.get(session_user)
+        _ -> User.get(session_user)
       end
 
     #srender använder slime

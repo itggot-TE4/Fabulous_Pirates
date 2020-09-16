@@ -3,7 +3,7 @@ defmodule Pluggy.Router do
   use Plug.Debugger
 
 
-  alias Pluggy.FruitController
+  alias Pluggy.ClassController
   alias Pluggy.UserController
 
 
@@ -28,18 +28,18 @@ defmodule Pluggy.Router do
 
 
 
-  get("/fruits", do: FruitController.index(conn))
-  get("/fruits/new", do: FruitController.new(conn))
-  get("/fruits/:id", do: FruitController.show(conn, id))
-  get("/fruits/:id/edit", do: FruitController.edit(conn, id))
+  get("/classes", do: ClassController.index(conn))
+  get("/classes/new", do: ClassController.new(conn))
+  get("/classes/:id", do: ClassController.show(conn, id))
+  get("/classes/:id/edit", do: ClassController.edit(conn, id))
 
-  post("/fruits", do: FruitController.create(conn, conn.body_params))
+  post("/classes", do: ClassController.create(conn, conn.body_params))
 
-  # should be put /fruits/:id, but put/patch/delete are not supported without hidden inputs
-  post("/fruits/:id/edit", do: FruitController.update(conn, id, conn.body_params))
+  # should be put /classes/:id, but put/patch/delete are not supported without hidden inputs
+  post("/classes/:id/edit", do: ClassController.update(conn, id, conn.body_params))
 
-  # should be delete /fruits/:id, but put/patch/delete are not supported without hidden inputs
-  post("/fruits/:id/destroy", do: FruitController.destroy(conn, id))
+  # should be delete /classes/:id, but put/patch/delete are not supported without hidden inputs
+  post("/classes/:id/destroy", do: ClassController.destroy(conn, id))
 
   get("/login", do: UserController.login_form(conn))
 

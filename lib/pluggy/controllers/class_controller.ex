@@ -1,7 +1,7 @@
-defmodule Pluggy.FruitController do
+defmodule Pluggy.ClassController do
   require IEx
 
-  alias Pluggy.Fruit
+  alias Pluggy.Class
   alias Pluggy.User
   import Pluggy.Template, only: [render: 2, srender: 2]
   import Plug.Conn, only: [send_resp: 3]
@@ -17,32 +17,32 @@ defmodule Pluggy.FruitController do
       end
 
     #srender använder slime
-    send_resp(conn, 200, srender("fruits/index", fruits: Fruit.all(), user: current_user))
+    send_resp(conn, 200, srender("classes/index", classes: Class.all(), user: current_user))
   end
 
   #render använder eex
-  def new(conn), do: send_resp(conn, 200, render("fruits/new", []))
-  def show(conn, id), do: send_resp(conn, 200, render("fruits/show", fruit: Fruit.get(id)))
-  def edit(conn, id), do: send_resp(conn, 200, render("fruits/edit", fruit: Fruit.get(id)))
+  def new(conn), do: send_resp(conn, 200, render("classes/new", []))
+  def show(conn, id), do: send_resp(conn, 200, render("classes/show", class: Class.get(id)))
+  def edit(conn, id), do: send_resp(conn, 200, render("classes/edit", class: Class.get(id)))
 
   def create(conn, params) do
-    Fruit.create(params)
+    Class.create(params)
     case params["file"] do
       nil -> IO.puts("No file uploaded")  #do nothing
         # move uploaded file from tmp-folder
       _  -> File.rename(params["file"].path, "priv/static/uploads/#{params["file"].filename}")
     end
-    redirect(conn, "/fruits")
+    redirect(conn, "/classes")
   end
 
   def update(conn, id, params) do
-    Fruit.update(id, params)
-    redirect(conn, "/fruits")
+    Class.update(id, params)
+    redirect(conn, "/classes")
   end
 
   def destroy(conn, id) do
-    Fruit.delete(id)
-    redirect(conn, "/fruits")
+    Class.delete(id)
+    redirect(conn, "/classes")
   end
 
   defp redirect(conn, url) do

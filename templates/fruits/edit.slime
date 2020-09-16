@@ -1,5 +1,0 @@
-h1 #{Fruits.edit("/fruits/#{fruit.id}/edit")}
-form action="/fruits/#{fruit.id}/edit" method="post" 
-  input name="name" type="text" value="<%= fruit.name %>" /
-  input name="tastiness" type="text" value="#{fruit.tastiness}" /
-  button type="submit"  Update

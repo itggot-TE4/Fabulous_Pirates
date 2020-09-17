@@ -1,3 +1,19 @@
 body {
-	background-color: peachpuff;
+	margin: 0;
+	padding: 0;
+}
+
+.wrapper {
+	padding: 0 5px;
+}
+
+header {
+	background: rgb(10, 240, 255);
+	margin-left: -5px;
+	margin-right: -5px;
+	padding: 5px;
+}
+
+header h2 {
+	margin: 4px;
 }

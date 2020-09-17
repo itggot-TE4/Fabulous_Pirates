@@ -3,6 +3,15 @@ defmodule Pluggy.User do
 
   alias Pluggy.User
 
+  def get_current(conn) do
+    session_user = conn.private.plug_session["user_id"]
+    current_user =
+      case session_user do
+        nil -> nil
+        _ -> get(session_user)
+      end
+  end
+
   def get(id) do
     Postgrex.query!(DB, "SELECT id, username FROM users WHERE id = $1 LIMIT 1", [id],
       pool: DBConnection.ConnectionPool

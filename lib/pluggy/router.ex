@@ -50,6 +50,8 @@ defmodule Pluggy.Router do
   # should be delete /classes/:id, but put/patch/delete are not supported without hidden inputs
   post("/classes/:id/destroy", do: ClassController.destroy(conn, id))
 
+  get("/schools/:id", do: SchoolController.show(conn, id))
+
   get("/login", do: UserController.login_form(conn))
 
   post("/users/login", do: UserController.login(conn, conn.body_params))

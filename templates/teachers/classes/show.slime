@@ -2,7 +2,8 @@
 
 
 = for clas <- class do
-    p= clas.class_name 
+    a href="/teachers/classes/practice"
+         button= clas.class_name 
 
 
 

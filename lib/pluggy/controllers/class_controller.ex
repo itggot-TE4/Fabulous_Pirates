@@ -21,9 +21,9 @@ defmodule Pluggy.ClassController do
   end
 
   #render använder eex
-  def new(conn), do: send_resp(conn, 200, render("classes/new", []))
-  def show(conn, id), do: send_resp(conn, 200, render("classes/show", class: Class.get(id)))
-  def edit(conn, id), do: send_resp(conn, 200, render("classes/edit", class: Class.get(id)))
+  def new(conn), do: send_resp(conn, 200,srender("admin/classes/new", []))
+  def show(conn, id), do: send_resp(conn, 200,srender("teachers/classes/show", class: Class.get(id)))
+  def edit(conn, id), do: send_resp(conn, 200,srender("admin/classes/edit", class: Class.get(id)))
 
   def create(conn, params) do
     Class.create(params)

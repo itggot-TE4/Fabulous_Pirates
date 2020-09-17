@@ -1,5 +1,5 @@
 defmodule Pluggy.UserController do
-  # import Pluggy.Template, only: [render: 2] #det här exemplet renderar inga templates
+  # import Pluggy.Template, only: [render: 2] #det här exempletsrenderar inga templates
   import Plug.Conn, only: [send_resp: 3]
   import Pluggy.Template, only: [srender: 1, srender: 2]
   import Pluggy.User

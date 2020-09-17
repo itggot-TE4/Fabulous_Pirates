@@ -6,12 +6,12 @@ html
         meta charset="UTF-8"
         meta name="viewport" content="width=device-width, initial-scale=1.0"
     body
-    header
-        h2 What´s Their Face v2
-        / TODO: Add if statement checking if user is signed in or not.
-        form action="/users/logout" method="post"
-            button type="submit" Log Out
-        button
-            a href="/login" Login
-    .wrapper
-        = template
+        .wrapper
+            header
+                h2 What´s Their Face v2
+                / TODO: Add if statement checking if user is signed in or not.
+                form action="/users/logout" method="post"
+                    button type="submit" Log Out
+                button
+                    a href="/login" Login
+            = template

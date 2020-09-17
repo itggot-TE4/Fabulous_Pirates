@@ -2,8 +2,13 @@ h1 Admin page
 h2 Schools
 = for school <- schools do
   a href="/admin/school/#{school.id}"
-    p= school.name
+    p= school.school_name
+a href="/admin/school/new"
+  button Create a new school
+
 h2 Classes
 = for class <- classes do
   a href="/admin/class/#{class.id}"
     p= class.class_name
+a href="/admin/class/new"
+  button Create a new class

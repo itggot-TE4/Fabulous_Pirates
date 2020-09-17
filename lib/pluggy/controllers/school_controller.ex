@@ -7,19 +7,13 @@ defmodule Pluggy.SchoolController do
   import Plug.Conn, only: [send_resp: 3]
 
 
-  #render använder eex
   def new(conn), do: send_resp(conn, 200, srender("admin/schools/new", []))
   def show(conn, id), do: send_resp(conn, 200, srender("teachers/schools/show", school: School.get(id)))
   def edit(conn, id), do: send_resp(conn, 200, srender("admin/schools/edit", school: School.get(id)))
 
   def create(conn, params) do
     School.create(params)
-    case params["file"] do
-      nil -> IO.puts("No file uploaded")  #do nothing
-        # move uploaded file from tmp-folder
-      _  -> File.rename(params["file"].path, "priv/static/uploads/#{params["file"].filename}")
-    end
-    redirect(conn, "/schools")
+    redirect(conn, "/admin")
   end
 
   def update(conn, id, params) do

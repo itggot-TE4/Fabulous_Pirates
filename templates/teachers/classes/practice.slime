@@ -1,0 +1,8 @@
+
+input type="file" id="file-selector" multiple=true > Select images of people you want to learn the names of. (file name format as "Firstname_Lastname")
+
+
+
+ul id="brickor"
+
+script src="/script.js"

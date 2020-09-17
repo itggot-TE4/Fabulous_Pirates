@@ -1,10 +1,10 @@
 body {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .wrapper {
-	padding: 0 5px;
+    padding: 0 5px;
 }
 
 header {
@@ -17,5 +17,56 @@ header {
 }
 
 header h2 {
-	margin: 4px;
+    margin: 4px;
+}
+
+
+/* 
+memory styling
+ */
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 217px;
+    height: 217px;
+    border-radius: 5px;
+    overflow: hidden;
+    display: inline-block;
+    margin: 10px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+ul {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card div {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.card span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.card .content {
+    visibility: hidden;
+}
+
+.flipped .content {
+    visibility: visible;
 }

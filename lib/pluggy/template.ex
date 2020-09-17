@@ -10,7 +10,7 @@ defmodule Pluggy.Template do
         data_function = [{:slime, fn(e, x) -> srender(e, x, false) end} | data]
         params = [{:template, Slime.render(template, data_function)} | data_function]
         # Render the layout file using params
-        # params contains a the :template, slim./2 and the optionaly passed data
+        # params contains the :template, slim./2 function and the optionaly passed data
         Slime.Renderer.render(layout, params)
 
       false ->

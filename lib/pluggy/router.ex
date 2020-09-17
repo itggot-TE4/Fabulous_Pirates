@@ -7,6 +7,7 @@ defmodule Pluggy.Router do
   alias Pluggy.UserController
   alias Pluggy.AdminController
   alias Pluggy.SchoolController
+  alias Pluggy.IndexController
 
 
 
@@ -28,6 +29,8 @@ defmodule Pluggy.Router do
   plug(:match)
   plug(:dispatch)
 
+  # index page
+  get("/", do: IndexController.index(conn))
 
   # Admin pages
   get("/admin", do: AdminController.index(conn))

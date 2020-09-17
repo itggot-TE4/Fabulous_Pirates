@@ -6,19 +6,6 @@ defmodule Pluggy.ClassController do
   import Pluggy.Template, only: [render: 2, srender: 2]
   import Plug.Conn, only: [send_resp: 3]
 
-  def index(conn) do
-    # get user if logged in
-    session_user = conn.private.plug_session["user_id"]
-
-    current_user =
-      case session_user do
-        nil -> nil
-        _ -> User.get(session_user)
-      end
-
-    send_resp(conn, 200, srender("classes/index", classes: Class.all(), user: current_user))
-  end
-
   def new(conn), do: send_resp(conn, 200,srender("admin/classes/new", []))
   def show(conn, id), do: send_resp(conn, 200,srender("teachers/classes/show", class: Class.get_by_school_id(id)))
   def edit(conn, id), do: send_resp(conn, 200,srender("admin/classes/edit", class: Class.get(id)))

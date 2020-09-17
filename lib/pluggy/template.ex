@@ -5,7 +5,10 @@ defmodule Pluggy.Template do
     case layout do
       true ->
         {:ok, layout} = File.read("templates/layout.slime")
-        Slime.render(layout, template: Slime.render(template, data))
+        # Inserts data into template file
+        temp = {:template, Slime.render(template, data)}
+        # Inserts data into layout file
+        Slime.Renderer.render(layout, [temp | data])
 
       false ->
         Slime.render(template, data)

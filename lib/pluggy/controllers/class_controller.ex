@@ -20,8 +20,8 @@ defmodule Pluggy.ClassController do
   end
 
   def new(conn), do: send_resp(conn, 200,srender("admin/classes/new", []))
-  def show(conn, id), do: send_resp(conn, 200,srender("teachers/classes/show", class: Class.get_by_school_id(id)))
-  def edit(conn, id), do: send_resp(conn, 200,srender("admin/classes/edit", class: Class.get(id)))
+  def show(conn, id), do: send_resp(conn, 200,srender("teachers/class/show", class: Class.get_by_school_id(id)))
+  def edit(conn, id), do: send_resp(conn, 200,srender("admin/class/edit", class: Class.get(id)))
 
   def create(conn, params) do
     Class.create(params)
@@ -35,7 +35,7 @@ defmodule Pluggy.ClassController do
 
   def update(conn, id, params) do
     Class.update(id, params)
-    redirect(conn, "/classes")
+    redirect(conn, "/classes/#{id}")
   end
 
   def destroy(conn, id) do

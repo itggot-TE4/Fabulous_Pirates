@@ -35,6 +35,6 @@ defmodule Pluggy.AdminController do
         nil -> nil
         _ -> User.get(session_user)
       end
-    send_resp(conn, 200, srender("admin/index", [schools: School.all(), classes: Class.all()]))
+    send_resp(conn, 200, srender("admin/index", [schools: School.all(), classes: Class.all(), user: current_user]))
   end
 end

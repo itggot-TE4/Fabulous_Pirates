@@ -21,8 +21,8 @@ defmodule Pluggy.SchoolController do
     redirect(conn, "/schools")
   end
 
-  def destroy(conn, id) do
-    School.delete(id)
+  def delete(conn, params) do
+    School.delete(params)
     redirect(conn, "/schools")
   end
 

@@ -16,7 +16,6 @@ defmodule Pluggy.ClassController do
         _ -> User.get(session_user)
       end
 
-    #srender använder slime
     send_resp(conn, 200, srender("classes/index", classes: Class.all(), user: current_user))
   end
 

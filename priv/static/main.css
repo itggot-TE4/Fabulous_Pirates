@@ -8,10 +8,12 @@ body {
 }
 
 header {
-    background: rgb(10, 240, 255);
-    margin-left: -5px;
-    margin-right: -5px;
-    padding: 5px;
+	background: rgb(10, 240, 255);
+	margin-left: -5px;
+	margin-right: -5px;
+	padding: 5px;
+	display: grid;
+	grid-template-columns: auto auto auto auto;
 }
 
 header h2 {

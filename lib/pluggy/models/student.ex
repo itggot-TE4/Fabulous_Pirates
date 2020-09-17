@@ -15,6 +15,8 @@ defmodule Pluggy.Student do
     |> to_struct
   end
 
+
+
   def update(id, params) do
     name = params["name"]
     class_id = params["class_id"]

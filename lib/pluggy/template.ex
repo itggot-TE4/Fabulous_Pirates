@@ -5,10 +5,13 @@ defmodule Pluggy.Template do
     case layout do
       true ->
         {:ok, layout} = File.read("templates/layout.slime")
-        # Inserts data into template file
-        temp = {:template, Slime.render(template, data)}
-        # Inserts data into layout file
-        Slime.Renderer.render(layout, [temp | data])
+        # Makes the slim./2 function available in template files
+        # thereby allowing for the use of partials
+        data_function = [{:slime, fn(e, x) -> srender(e, x, false) end} | data]
+        params = [{:template, Slime.render(template, data_function)} | data_function]
+        # Render the layout file using params
+        # params contains a the :template, slim./2 and the optionaly passed data
+        Slime.Renderer.render(layout, params)
 
       false ->
         Slime.render(template, data)

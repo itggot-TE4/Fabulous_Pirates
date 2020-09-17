@@ -9,7 +9,7 @@ defmodule Pluggy.SchoolController do
 
   #render använder eex
   def new(conn), do: send_resp(conn, 200, srender("admin/schools/new", []))
-  def show(conn, id), do: send_resp(conn, 200, srender("teachers/schools/show", school: School.get(id)))
+  def show(conn, id), do: send_resp(conn, 200, srender("teachers/schools/show", school: School.get_by_user_id(id)))
   def edit(conn, id), do: send_resp(conn, 200, srender("admin/schools/edit", school: School.get(id)))
 
   def create(conn, params) do

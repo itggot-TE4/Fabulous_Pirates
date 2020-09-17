@@ -1,0 +1,5 @@
+
+
+= for schol <- school do 
+    a href="/classes/#{schol.id}"
+         button= schol.school_name

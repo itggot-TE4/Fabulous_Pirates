@@ -15,6 +15,14 @@ defmodule Pluggy.Class do
     |> to_struct
   end
 
+
+  def get_by_school_id(id) do
+    Postgrex.query!(DB, "SELECT Classes.id, class_name, school_id FROM Classes JOIN Schools ON school_id = Schools.id WHERE Schools.id = $1", [String.to_integer(id)],
+      pool: DBConnection.ConnectionPool
+    ).rows
+    |> to_struct_list()
+  end
+
   def update(id, params) do
     name = params["name"]
     school_id = params["school_id"]

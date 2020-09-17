@@ -1,7 +1,7 @@
 
 
 
-- for clas <- class
+= for clas <- class do
     p= clas.class_name 
 
 

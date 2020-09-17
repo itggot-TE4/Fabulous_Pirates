@@ -6,4 +6,4 @@ h2 Schools
 h2 Classes
 = for class <- classes do
   a href="/admin/class/#{class.id}"
-    p= class.name
+    p= class.class_name

@@ -6,6 +6,7 @@ defmodule Pluggy.Router do
   alias Pluggy.ClassController
   alias Pluggy.UserController
   alias Pluggy.AdminController
+  alias Pluggy.SchoolController
 
 
 
@@ -28,9 +29,12 @@ defmodule Pluggy.Router do
   plug(:dispatch)
 
 
-
+  # Admin pages
   get("/admin", do: AdminController.index(conn))
+  get("/admin/school/new", do: AdminController.new_school_form(conn))
+  post("/school/new", do: SchoolController.create(conn, conn.body_params))
 
+  # Class pages
   get("/classes", do: ClassController.index(conn))
   get("/classes/new", do: ClassController.new(conn))
   get("/classes/:id", do: ClassController.show(conn, id))

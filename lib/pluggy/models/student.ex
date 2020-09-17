@@ -1,5 +1,5 @@
 defmodule Pluggy.Student do
-  defstruct(id: nil, name: "", class_id: nil)
+  defstruct(id: nil, student_name: "", class_id: nil)
 
   alias Pluggy.Student
 
@@ -22,7 +22,7 @@ defmodule Pluggy.Student do
 
     Postgrex.query!(
       DB,
-      "UPDATE Students SET name = $1, class_id = $2 WHERE id = $3",
+      "UPDATE Students SET student_name = $1, class_id = $2 WHERE id = $3",
       [name, class_id, id],
       pool: DBConnection.ConnectionPool
     )
@@ -32,7 +32,7 @@ defmodule Pluggy.Student do
     name = params["name"]
     class_id = params["class_id"]
 
-    Postgrex.query!(DB, "INSERT INTO Students (name, class_id) VALUES ($1, $2)", [name, class_id],
+    Postgrex.query!(DB, "INSERT INTO Students (student_name, class_id) VALUES ($1, $2)", [name, class_id],
       pool: DBConnection.ConnectionPool
     )
   end
@@ -44,10 +44,10 @@ defmodule Pluggy.Student do
   end
 
   def to_struct([[id, name, class_id]]) do
-    %Student{id: id, name: name, class_id: class_id}
+    %Student{id: id, student_name: name, class_id: class_id}
   end
 
   def to_struct_list(rows) do
-    for [id, name, class_id] <- rows, do: %Student{id: id, name: name, class_id: class_id}
+    for [id, name, class_id] <- rows, do: %Student{id: id, student_name: name, class_id: class_id}
   end
 end

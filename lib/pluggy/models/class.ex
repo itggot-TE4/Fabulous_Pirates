@@ -38,7 +38,7 @@ defmodule Pluggy.Class do
 
   def create(params) do
     name = params["name"]
-    school_id = params["school_id"]
+    school_id = String.to_integer params["school_id"]
 
     Postgrex.query!(DB, "INSERT INTO Classes (class_name, school_id) VALUES ($1, $2)", [name, school_id],
       pool: DBConnection.ConnectionPool

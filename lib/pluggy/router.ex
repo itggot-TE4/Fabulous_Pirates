@@ -33,6 +33,8 @@ defmodule Pluggy.Router do
   get("/admin", do: AdminController.index(conn))
   get("/admin/school/new", do: AdminController.new_school_form(conn))
   post("/school/new", do: SchoolController.create(conn, conn.body_params))
+  get("/admin/class/new", do: AdminController.new_class_form(conn))
+  post("/class/new", do: ClassController.create(conn, conn.body_params))
 
   # Class pages
   get("/classes", do: ClassController.index(conn))

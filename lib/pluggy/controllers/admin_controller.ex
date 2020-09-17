@@ -16,7 +16,6 @@ defmodule Pluggy.AdminController do
         nil -> nil
         _ -> User.get(session_user)
       end
-      IO.inspect(Enum.map School.all(), fn(x) -> IO.inspect(x.name) end)
     send_resp(conn, 200, srender("admin/index", [schools: School.all(), classes: Class.all()]))
   end
 end

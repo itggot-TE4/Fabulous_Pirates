@@ -1,0 +1,4 @@
+h1 Edit #{school.school_name}
+form action="/school/#{school.id}/edit" method="post" 
+  input name="name" type="text" value="#{school.school_name}" /
+  button type="submit"  Update

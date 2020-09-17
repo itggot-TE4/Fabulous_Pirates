@@ -3,6 +3,13 @@ h2 Schools
 = for school <- schools do
   a href="/admin/school/#{school.id}"
     p= school.school_name
+
+  form method="POST" action="/school/delete"
+    input class="invisible"  name="id" value="#{school.id}"
+    button type="submit" Delete 
+
+
+
 a href="/admin/school/new"
   button Create a new school
 
@@ -12,3 +19,4 @@ h2 Classes
     p= class.class_name
 a href="/admin/class/new"
   button Create a new class
+

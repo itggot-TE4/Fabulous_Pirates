@@ -17,6 +17,14 @@ header {
 }
 
 header h2 {
+
+	margin: 4px;
+}
+
+.invisible 
+{
+	display: none;
+
     margin: 4px;
 }
 
@@ -69,4 +77,5 @@ img {
 
 .flipped .content {
     visibility: visible;
+
 }

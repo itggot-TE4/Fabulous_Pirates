@@ -25,13 +25,12 @@ defmodule Pluggy.Class do
 
   def update(id, params) do
     name = params["name"]
-    school_id = params["school_id"]
     id = String.to_integer(id)
 
     Postgrex.query!(
       DB,
-      "UPDATE Classes SET class_name = $1, school_id = $2  WHERE id = $3",
-      [name, school_id, id],
+      "UPDATE Classes SET class_name = $1 WHERE id = $2",
+      [name, id],
       pool: DBConnection.ConnectionPool
     )
   end

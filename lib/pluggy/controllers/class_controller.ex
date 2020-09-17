@@ -20,10 +20,10 @@ defmodule Pluggy.ClassController do
     send_resp(conn, 200, srender("classes/index", classes: Class.all(), user: current_user))
   end
 
-  #render använder eex
   def new(conn), do: send_resp(conn, 200,srender("admin/classes/new", []))
   def show(conn, id), do: send_resp(conn, 200,srender("teachers/classes/show", class: Class.get_by_school_id(id)))
   def edit(conn, id), do: send_resp(conn, 200,srender("admin/classes/edit", class: Class.get(id)))
+  def practice(conn, id), do: send_resp(conn, 200, srender("teachers/classes/practice", class: []))
 
   def create(conn, params) do
     Class.create(params)

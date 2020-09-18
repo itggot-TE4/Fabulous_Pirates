@@ -15,6 +15,12 @@ defmodule Pluggy.Student do
     |> to_struct
   end
 
+  def get_by_class(id) do
+    Postgrex.query!(DB, "SELECT * FROM Students WHERE class_id = $1", [String.to_integer(id)],
+      pool: DBConnection.ConnectionPool
+    ).rows
+    |> to_struct_list()
+  end
 
 
   def update(id, params) do

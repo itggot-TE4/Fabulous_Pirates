@@ -6,7 +6,7 @@ h2 Schools
   a href="/school/#{school.id}/edit"
     button Edit
   form method="POST" action="/school/delete"
-    input class="invisible"  name="id" value="#{school.id}"
+    input class="invisible"  name="id" value="#{school.id}" disabled="true"
     button type="submit" Delete 
 
 
@@ -21,7 +21,7 @@ h2 Classes
   a href="/classes/#{class.id}/edit"
     button Edit
   form method="POST" action="/classes/delete"
-    input class="invisible"  name="id" value="#{class.id}"
+    input class="invisible"  name="id" value="#{class.id}" disabled="true"
     button type="submit" Delete 
   
 a href="/admin/class/new"

@@ -63,6 +63,6 @@ defmodule Pluggy.UserController do
       Enum.map params["school"], fn(x) ->
         Postgrex.query!(DB, "INSERT INTO User_School_id (user_id, school_id) VALUES ($1, $2)", [user_id, String.to_integer(x)], pool: DBConnection.ConnectionPool)
       end
-    redirect(conn, "/fruits")
+    redirect(conn, "/users")
   end
 end

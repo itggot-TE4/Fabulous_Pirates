@@ -57,4 +57,10 @@ defmodule Pluggy.UserController do
     end
     redirect(conn, "/fruits")
   end
+
+  def route_accessible_by_current_user?(conn) do
+
+
+  end
+
 end

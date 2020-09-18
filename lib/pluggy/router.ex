@@ -28,13 +28,23 @@ defmodule Pluggy.Router do
 
   plug(:fetch_session)
   plug(Plug.Parsers, parsers: [:urlencoded, :multipart])
+
+
   plug(:match)
   plug(:dispatch)
+  plug(:auth)
 
-  # index page
+  def auth(%Plug.Conn{request_path: "/login"} = conn, _), do: conn
+  def auth(%Plug.Conn{request_path: path} = conn, _) do
+    cond
+      UserController.route_accessible_by_current_user?(conn) -> conn
+      true -> redirect(conn, "/login")
+    end
+  end
 
 
   # Admin pages
+  # get("/*_", do: UserController.route_accessible_by_current_user?(conn))
   get("/admin", do: AdminController.index(conn))
   get("/admin/school/new", do: AdminController.new_school_form(conn))
   post("/school/new", do: SchoolController.create(conn, conn.body_params))

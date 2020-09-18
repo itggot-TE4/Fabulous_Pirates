@@ -8,7 +8,7 @@ defmodule Pluggy.SchoolController do
 
 
   def new(conn), do: send_resp(conn, 200, srender("admin/schools/new", [user: User.get_current(conn)]))
-  def show(conn, id), do: send_resp(conn, 200, srender("teachers/schools/show", [school: School.get_by_user_id(id), user: User.get_current(conn)]))
+  def show(conn), do: send_resp(conn, 200, srender("teachers/schools/show", [school: School.get_by_user_id(User.get_current(conn)), user: User.get_current(conn)]))
   def edit(conn, id), do: send_resp(conn, 200, srender("admin/school/edit", [school: School.get(id), user: User.get_current(conn)]))
 
   def create(conn, params) do

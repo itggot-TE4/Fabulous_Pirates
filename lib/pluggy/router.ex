@@ -30,7 +30,7 @@ defmodule Pluggy.Router do
   plug(:dispatch)
 
   # index page
-  get("/", do: IndexController.index(conn))
+
 
   # Admin pages
   get("/admin", do: AdminController.index(conn))
@@ -41,6 +41,7 @@ defmodule Pluggy.Router do
   post("/school/delete", do: SchoolController.delete(conn, conn.body_params))
 
   # Class pages
+
   get("/classes", do: ClassController.index(conn))
   get("/classes/new", do: ClassController.new(conn))
   get("/classes/:id", do: ClassController.show(conn, id))
@@ -50,13 +51,23 @@ defmodule Pluggy.Router do
   # should be delete /classes/:id, but put/patch/delete are not supported without hidden inputs
   post("/classes/:id/destroy", do: ClassController.destroy(conn, id))
 
-  get("/classes/:id/edit", do: ClassController.edit(conn, conn.params["id"]))
-  post("/classes/:id/edit", do: ClassController.update(conn, conn.params["id"], conn.body_params))
+  get("/schools", do: ClassController.index(conn))
+  get("/schools/new", do: ClassController.new(conn))
+  get("/schools/:id", do: ClassController.show(conn, id))
+
+  post("/schools", do: ClassController.create(conn, conn.body_params))
+  # should be put /schools/:id, but put/patch/delete are not supported without hidden inputs
+  # should be delete /schools/:id, but put/patch/delete are not supported without hidden inputs
+  post("/schools/:id/destroy", do: ClassController.destroy(conn, id))
+
+
+  get("/schools/:id/edit", do: ClassController.edit(conn, conn.params["id"]))
+  post("/schools/:id/edit", do: ClassController.update(conn, conn.params["id"], conn.body_params))
 
   get("/school/:id/edit", do: SchoolController.edit(conn, conn.params["id"]))
   post("/school/:id/edit", do: SchoolController.update(conn, conn.params["id"], conn.body_params))
 
-  get("/schools/:id", do: SchoolController.show(conn, id))
+  get("/", do: SchoolController.show(conn))
 
   get("/login", do: UserController.login_form(conn))
 

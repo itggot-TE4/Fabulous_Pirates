@@ -3,6 +3,7 @@ defmodule Pluggy.UserController do
   import Plug.Conn, only: [send_resp: 3]
   import Pluggy.Template, only: [srender: 1, srender: 2]
   alias Pluggy.User
+  alias Pluggy.School
 
   def login(conn, params) do
     username = params["name"]
@@ -46,15 +47,22 @@ defmodule Pluggy.UserController do
     do: Plug.Conn.put_resp_header(conn, "location", url) |> send_resp(303, "")
 
   def new_user_form(conn) do
-    send_resp(conn, 200, srender("users/new", [user: User.get_current(conn)]))
+    send_resp(conn, 200, srender("users/new", [user: User.get_current(conn), schools: School.all()]))
   end
 
   def create_new_user(conn, params) do
-    case params["file"] do
-      nil -> Postgrex.query!(DB, "INSERT INTO Users(name, username, type, password_hash) VALUES($1, $2, $3, $4)", [params["name"], params["user_name"], "Admin", Tuple.to_list(Map.fetch(Bcrypt.add_hash(params["password"]), :password_hash)) |> Enum.at(1)], pool: DBConnection.ConnectionPool)
-      _  -> fn ->
-        Postgrex.query!(DB, "INSERT INTO Users(name, username, type, password_hash, img) VALUES($1, $2, $3, $4)", [params["name"], params["user_name"], "Admin", Tuple.to_list(Map.fetch(Bcrypt.add_hash(params["password"], User.save_img(params)), :password_hash)) |> Enum.at(1)], pool: DBConnection.ConnectionPool)  end
-    end
+    user = case params["file"] do
+      nil -> fn () ->
+          Postgrex.query!(DB, "INSERT INTO Users (name, username, type, password_hash) VALUES ($1, $2, $3, $4) RETURNING id", [params["name"], params["user_name"], "Admin", Tuple.to_list(Map.fetch(Bcrypt.add_hash(params["password"]), :password_hash)) |> Enum.at(1)], pool: DBConnection.ConnectionPool) end
+      _  -> fn () ->
+        Postgrex.query!(DB, "INSERT INTO Users (name, username, type, password_hash, img) VALUES ($1, $2, $3, $4, $5) RETURNING id", [params["name"], params["user_name"], "Admin", Tuple.to_list(Map.fetch(Bcrypt.add_hash(params["password"]), :password_hash)) |> Enum.at(1), User.save_img(params)], pool: DBConnection.ConnectionPool) end
+      end
+
+      [[user_id]] = user.().rows
+
+      Enum.map params["school"], fn(x) ->
+        Postgrex.query!(DB, "INSERT INTO User_School_id (user_id, school_id) VALUES ($1, $2)", [user_id, String.to_integer(x)], pool: DBConnection.ConnectionPool)
+      end
     redirect(conn, "/fruits")
   end
 end

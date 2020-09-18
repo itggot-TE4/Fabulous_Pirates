@@ -6,4 +6,7 @@ form method="POST" action="/users/new" enctype="multipart/form-data"
     select name="type"
         option value="Admin" Admin
         option value="Teacher" Teacher
+    select name="school[]" multiple="true"
+        = for school <- schools do
+            option value="#{school.id}" #{school.school_name}
     button type="submit" Create

@@ -7,6 +7,7 @@ defmodule Pluggy.Router do
   alias Pluggy.UserController
   alias Pluggy.AdminController
   alias Pluggy.SchoolController
+  alias Pluggy.StudentController
   alias Pluggy.IndexController
 
 
@@ -40,6 +41,9 @@ defmodule Pluggy.Router do
   post("/class/new", do: ClassController.create(conn, conn.body_params))
   post("/school/delete", do: SchoolController.delete(conn, conn.body_params))
 
+  get("/admin/school/:id/student/new", do: AdminController.new_student_form(conn, id))
+  post("/school/:id/student/new", do: StudentController.new(conn, conn.body_params))
+
   # Class pages
 
   get("/classes", do: ClassController.index(conn))
@@ -63,6 +67,8 @@ defmodule Pluggy.Router do
 
   get("/schools/:id/edit", do: ClassController.edit(conn, conn.params["id"]))
   post("/schools/:id/edit", do: ClassController.update(conn, conn.params["id"], conn.body_params))
+
+  get("classes/:id/practice", do: ClassController.practice(conn, id))
 
   get("/school/:id/edit", do: SchoolController.edit(conn, conn.params["id"]))
   post("/school/:id/edit", do: SchoolController.update(conn, conn.params["id"], conn.body_params))

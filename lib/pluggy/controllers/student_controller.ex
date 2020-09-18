@@ -8,9 +8,9 @@ defmodule Pluggy.StudentController do
 
 
   #render använder eex
-  def new(conn), do: send_resp(conn, 200,srender("admin/students/new", []))
-  def show(conn, id), do: send_resp(conn, 200,srender("teachers/students/show", student: Student.get(id)))
-  def edit(conn, id), do: send_resp(conn, 200,srender("admin/students/edit", student: Student.get(id)))
+  def new(conn), do: send_resp(conn, 200,srender("admin/students/new", [user: User.get_current(conn)]))
+  def show(conn, id), do: send_resp(conn, 200,srender("teachers/students/show", [student: Student.get(id), user: User.get_current(conn)]))
+  def edit(conn, id), do: send_resp(conn, 200,srender("admin/students/edit", [student: Student.get(id), user: User.get_current(conn)]))
 
   def create(conn, params) do
     Student.create(params)

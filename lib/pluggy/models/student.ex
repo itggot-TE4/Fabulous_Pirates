@@ -36,7 +36,7 @@ defmodule Pluggy.Student do
     class_id = String.to_integer params["class_id"]
     img = User.save_img(params)
 
-    Postgrex.query!(DB, "INSERT INTO Students (student_name, class_id, img) VALUES ($1, $2)", [name, class_id, img],
+    Postgrex.query!(DB, "INSERT INTO Students (student_name, class_id, img) VALUES ($1, $2, $3)", [name, class_id, img],
       pool: DBConnection.ConnectionPool
     )
   end

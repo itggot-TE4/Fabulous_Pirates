@@ -7,18 +7,6 @@ defmodule Pluggy.IndexController do
   import Pluggy.Template, only: [srender: 1, srender: 2]
 
   def index(conn) do
-    # get user if logged in
-    session_user = conn.private.plug_session["user_id"]
-
-    current_user =
-      case session_user do
-        nil -> nil
-        _ -> User.get(session_user)
-      end
-
-    send_resp(conn, 200, srender("/index"))
+    send_resp(conn, 200, srender("/index", [ user: User.get_current(conn) ] ))
   end
-
-
-
 end

@@ -13,14 +13,14 @@ defmodule Pluggy.User do
   end
 
   def get(id) do
-    Postgrex.query!(DB, "SELECT id, username FROM users WHERE id = $1 LIMIT 1", [id],
+    Postgrex.query!(DB, "SELECT id, username, img FROM users WHERE id = $1 LIMIT 1", [id],
       pool: DBConnection.ConnectionPool
     ).rows
     |> to_struct
   end
 
-  def to_struct([[id, username]]) do
-    %User{id: id, username: username}
+  def to_struct([[id, username, path]]) do
+    %User{id: id, username: username, img_path: path}
   end
 
   def save_img(params) do

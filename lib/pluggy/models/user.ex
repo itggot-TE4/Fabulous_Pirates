@@ -24,8 +24,9 @@ defmodule Pluggy.User do
   end
 
   def save_img(params) do
+    IO.inspect(params["file"])
     name = "#{params["file"].filename ++ to_string(DateTime.utc_now)}"
-    File.rename(params["file"].path, "priv/static/uploads/#{name}")
+    File.rename(params["file"].path, "priv/static/uploads/#{String.replace(name, ~r[\s], '')}")
     name
   end
 end

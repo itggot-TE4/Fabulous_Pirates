@@ -12,13 +12,8 @@ defmodule Pluggy.StudentController do
   def show(conn, id), do: send_resp(conn, 200,srender("teachers/students/show", [student: Student.get(id), user: User.get_current(conn)]))
   def edit(conn, id), do: send_resp(conn, 200,srender("admin/students/edit", [student: Student.get(id), user: User.get_current(conn)]))
 
-  def create(conn, params) do
+  def new(conn, params) do
     Student.create(params)
-    case params["file"] do
-      nil -> IO.puts("No file uploaded")  #do nothing
-        # move uploaded file from tmp-folder
-      _  -> File.rename(params["file"].path, "priv/static/uploads/#{params["file"].filename}")
-    end
     redirect(conn, "/students")
   end
 

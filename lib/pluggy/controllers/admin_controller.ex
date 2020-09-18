@@ -16,6 +16,10 @@ defmodule Pluggy.AdminController do
     send_resp(conn, 200, srender("admin/class/new", user: User.get_current(conn), schools: School.all()))
   end
 
+  def new_student_form(conn, id) do
+    send_resp(conn, 200, srender("admin/school/student/new", user: User.get_current(conn), school_id: id, classes: Class.get_by_school_id(id)))
+  end
+
   def index(conn) do
     send_resp(conn, 200, srender("admin/index", [schools: School.all(), classes: Class.all(), user: User.get_current(conn)]))
   end

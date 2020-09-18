@@ -1,0 +1,7 @@
+form method="POST" action="/school/#{school_id}/student/new"
+    input type="text" name="name" placeholder="Student Name"
+    input type="file" name="file"
+    select name="class_id"
+        = for class <- classes do
+            option value="#{class.id}" #{class.class_name}
+    button type="submit" Create

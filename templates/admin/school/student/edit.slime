@@ -1,0 +1,4 @@
+h1 Edit #{student.name}
+form action="/students/#{student.id}/edit" method="post" 
+  input name="name" type="text" value="#{student.name}" /
+  button type="submit" Update

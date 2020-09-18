@@ -3,6 +3,7 @@ defmodule Pluggy.ClassController do
 
   alias Pluggy.Class
   alias Pluggy.User
+  alias Pluggy.Student
   import Pluggy.Template, only: [render: 2, srender: 2]
   import Plug.Conn, only: [send_resp: 3]
 
@@ -13,7 +14,7 @@ defmodule Pluggy.ClassController do
   def new(conn), do: send_resp(conn, 200,srender("admin/classes/new", [user: User.get_current(conn)]))
   def show(conn, id), do: send_resp(conn, 200,srender("teachers/classes/show", [class: Class.get_by_school_id(id), user: User.get_current(conn)]))
   def edit(conn, id), do: send_resp(conn, 200,srender("admin/class/edit", [class: Class.get(id), user: User.get_current(conn)]))
-  def practice(conn, id), do: send_resp(conn, 200, srender("teachers/classes/practice", [class: [], user: User.get_current(conn)]))
+  def practice(conn, id), do: send_resp(conn, 200, srender("teachers/classes/practice", [class: Student.get_by_class(id), user: User.get_current(conn)]))
 
   def create(conn, params) do
     Class.create(params)

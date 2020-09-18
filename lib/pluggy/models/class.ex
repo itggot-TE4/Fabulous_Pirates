@@ -44,7 +44,8 @@ defmodule Pluggy.Class do
     )
   end
 
-  def delete(id) do
+  def delete(params) do
+    id = params["id"]
     Postgrex.query!(DB, "DELETE FROM Classes WHERE id = $1", [String.to_integer(id)],
       pool: DBConnection.ConnectionPool
     )

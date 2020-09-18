@@ -57,6 +57,8 @@ defmodule Pluggy.Router do
   get("/classes/:id/edit", do: ClassController.edit(conn, conn.params["id"]))
   post("/classes/:id/edit", do: ClassController.update(conn, conn.params["id"], conn.body_params))
 
+  get("classes/:id/practice", do: ClassController.practice(conn, id))
+
   get("/school/:id/edit", do: SchoolController.edit(conn, conn.params["id"]))
   post("/school/:id/edit", do: SchoolController.update(conn, conn.params["id"], conn.body_params))
 

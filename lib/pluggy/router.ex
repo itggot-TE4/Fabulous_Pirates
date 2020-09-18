@@ -9,6 +9,7 @@ defmodule Pluggy.Router do
   alias Pluggy.SchoolController
   alias Pluggy.StudentController
   alias Pluggy.IndexController
+  alias Pluggy.GameController
 
 
 

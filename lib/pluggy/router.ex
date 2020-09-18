@@ -44,8 +44,8 @@ defmodule Pluggy.Router do
   get("/classes", do: ClassController.index(conn))
   get("/classes/new", do: ClassController.new(conn))
   get("/classes/:id", do: ClassController.show(conn, id))
-
-  post("/classes", do: ClassController.create(conn, conn.body_params))
+  post("/classes", do: ClassController.create(conn, conn.body_params["id"]))
+  post("/classes/delete", do: ClassController.delete(conn, conn.body_params))
   # should be put /classes/:id, but put/patch/delete are not supported without hidden inputs
   # should be delete /classes/:id, but put/patch/delete are not supported without hidden inputs
   post("/classes/:id/destroy", do: ClassController.destroy(conn, id))

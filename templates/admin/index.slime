@@ -20,6 +20,10 @@ h2 Classes
     p= class.class_name
   a href="/classes/#{class.id}/edit"
     button Edit
+  form method="POST" action="/classes/delete"
+    input class="invisible"  name="id" value="#{class.id}"
+    button type="submit" Delete 
+  
 a href="/admin/class/new"
   button Create a new class
 

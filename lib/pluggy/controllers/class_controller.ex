@@ -30,6 +30,12 @@ defmodule Pluggy.ClassController do
     redirect(conn, "/classes/#{id}")
   end
 
+  def delete(conn, params) do
+    Class.delete(params)
+    redirect(conn, "/classes")
+  end
+
+
   def destroy(conn, id) do
     Class.delete(id)
     redirect(conn, "/classes")

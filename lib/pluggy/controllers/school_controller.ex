@@ -17,6 +17,7 @@ defmodule Pluggy.SchoolController do
   end
 
   def update(conn, id, params) do
+    IO.puts"school"
     School.update(id, params)
     redirect(conn, "/schools")
   end

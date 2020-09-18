@@ -20,6 +20,7 @@ defmodule Pluggy.Student do
     Postgrex.query!(DB, "SELECT * FROM Students WHERE class_id = $1", [String.to_integer(id)],
       pool: DBConnection.ConnectionPool
     ).rows
+    |> IO.inspect()
     |> to_struct_list()
   end
 
@@ -53,11 +54,11 @@ defmodule Pluggy.Student do
     )
   end
 
-  def to_struct([[id, name, class_id]]) do
-    %Student{id: id, student_name: name, class_id: class_id}
+  def to_struct([[id, name, class_id, img]]) do
+    %Student{id: id, student_name: name, class_id: class_id, img: img}
   end
 
   def to_struct_list(rows) do
-    for [id, name, class_id] <- rows, do: %Student{id: id, student_name: name, class_id: class_id}
+    for [id, name, class_id, img] <- rows, do: %Student{id: id, student_name: name, class_id: class_id, img: img}
   end
 end

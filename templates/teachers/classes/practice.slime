@@ -3,9 +3,12 @@
 
 / ul id="brickor"
     
-/ script src="/script.js"
-form action="/"
-    = for student <- class do
+
+= for student <- class do
+    .studentbox
         img src="#{student.img}" alt="missing student image"
-        input type="text" name="#{student.student_name}"
-    button type="submit" submit
+        input.input type="text" name="#{student.student_name}"
+button onclick="check_answers()" check answers
+
+
+script src="/script.js"

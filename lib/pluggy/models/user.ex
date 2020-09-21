@@ -1,16 +1,16 @@
 defmodule Pluggy.User do
-  defstruct(id: nil, username: "")
+  defstruct(id: nil, name: "", username: "", type: 0, img: "")
 
+  require Pluggy.Generic
   alias Pluggy.User
 
+
   def get(id) do
-    Postgrex.query!(DB, "SELECT id, username FROM users WHERE id = $1 LIMIT 1", [id],
-      pool: DBConnection.ConnectionPool
-    ).rows
-    |> to_struct
+    Pluggy.Generic.get(id, "users", User)
   end
 
-  def to_struct([[id, username]]) do
-    %User{id: id, username: username}
+  def all() do
+    Pluggy.Generic.all("users", User)
   end
+
 end

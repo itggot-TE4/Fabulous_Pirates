@@ -1,5 +1,5 @@
 defmodule Pluggy.Generic do
-  alias Pluggy.Fruit
+  alias Pluggy.Generic
 
   def all(table, struct) do
     Postgrex.query!(DB, "SELECT * FROM #{table}", [], pool: DBConnection.ConnectionPool)

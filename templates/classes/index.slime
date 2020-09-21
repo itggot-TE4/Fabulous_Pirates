@@ -1,4 +1,4 @@
-h1 Fruits.index (/fruits)
+h1 index
 
 = if user do
 	form action="/users/logout" method="post"
@@ -11,11 +11,6 @@ h1 Fruits.index (/fruits)
         input type="password" name="pwd" id="password"
         button type="submit" Log In
 
-ul
-  = for fruit <- fruits do
-    li
-      a href="/fruits/#{fruit.id}" #{fruit.name} - #{fruit.tastiness}
 
-a href="/fruits/new" Add new fruit
 
 

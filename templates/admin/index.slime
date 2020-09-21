@@ -1,0 +1,39 @@
+h1 Admin page
+h2 Schools
+= for school <- schools do
+  a href="/admin/school/#{school.id}"
+    p= school.school_name
+  a href="/school/#{school.id}/edit"
+    button Edit
+  form method="POST" action="/school/delete"
+    input class="invisible"  name="id" value="#{school.id}" 
+    button type="submit" Delete 
+
+
+
+a href="/admin/school/new"
+  button Create a new school
+
+h2 Classes
+= for class <- classes do
+  a href="/classes/#{class.id}"
+    p= class.class_name
+  a href="/classes/#{class.id}/edit"
+    button Edit
+  form method="POST" action="/classes/delete"
+    input class="invisible"  name="id" value="#{class.id}" 
+    button type="submit" Delete 
+
+h2 Students
+= for student <- students do
+  a href="/students/#{student.id}"
+    p= student.student_name
+  a href="/students/#{student.id}/edit"
+    button Edit
+  form method="POST" action="/students/delete"
+    input class="invisible"  name="id" value="#{student.id}" 
+    button type="submit" Delete 
+  
+a href="/admin/student/new"
+  button Create a new student
+

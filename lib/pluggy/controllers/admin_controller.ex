@@ -6,6 +6,7 @@ defmodule Pluggy.AdminController do
   alias Pluggy.User
   alias Pluggy.Class
   alias Pluggy.School
+  alias Pluggy.Student
 
 
   def new_school_form(conn) do
@@ -21,6 +22,6 @@ defmodule Pluggy.AdminController do
   end
 
   def index(conn) do
-    send_resp(conn, 200, srender("admin/index", [schools: School.all(), classes: Class.all(), user: User.get_current(conn)]))
+    send_resp(conn, 200, srender("admin/index", [schools: School.all(), classes: Class.all(), students: Student.all(), user: User.get_current(conn)]))
   end
 end

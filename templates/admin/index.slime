@@ -6,7 +6,7 @@ h2 Schools
   a href="/school/#{school.id}/edit"
     button Edit
   form method="POST" action="/school/delete"
-    input class="invisible"  name="id" value="#{school.id}" disabled="true"
+    input class="invisible"  name="id" value="#{school.id}" 
     button type="submit" Delete 
 
 
@@ -21,9 +21,19 @@ h2 Classes
   a href="/classes/#{class.id}/edit"
     button Edit
   form method="POST" action="/classes/delete"
-    input class="invisible"  name="id" value="#{class.id}" disabled="true"
+    input class="invisible"  name="id" value="#{class.id}" 
+    button type="submit" Delete 
+
+h2 Students
+= for student <- students do
+  a href="/students/#{student.id}"
+    p= student.student_name
+  a href="/students/#{student.id}/edit"
+    button Edit
+  form method="POST" action="/students/delete"
+    input class="invisible"  name="id" value="#{student.id}" 
     button type="submit" Delete 
   
-a href="/admin/class/new"
-  button Create a new class
+a href="/admin/student/new"
+  button Create a new student
 

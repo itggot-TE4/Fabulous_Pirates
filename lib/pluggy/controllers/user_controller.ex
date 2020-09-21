@@ -1,60 +1,48 @@
 defmodule Pluggy.UserController do
-  # import Pluggy.Template, only: [render: 2] #det här exempletsrenderar inga templates
+  # import Pluggy.Template, only: [render: 2] #det här exemplet renderar inga templates
   import Plug.Conn, only: [send_resp: 3]
-  import Pluggy.Template, only: [srender: 1, srender: 2]
-  alias Pluggy.User
-  alias Pluggy.School
 
   def login(conn, params) do
-    username = params["name"]
-    password = params["password"]
+    username = params["username"]
+    password = params["pwd"]
 
      #Bör antagligen flytta SQL-anropet till user-model (t.ex User.find)
     result =
-      Postgrex.query!(DB, "SELECT * FROM users WHERE username = $1", [username],
+      Postgrex.query!(DB, "SELECT id, password_hash FROM users WHERE username = $1", [username],
         pool: DBConnection.ConnectionPool
       )
-
 
     case result.num_rows do
       # no user with that username
       0 ->
-        redirect(conn, "/")
+        redirect(conn, "/fruits")
       # user with that username exists
       _ ->
-        [%User{id, password_hash}] = result.rows
+        [[id, password_hash]] = result.rows
 
         # make sure password is correct
         if Bcrypt.verify_pass(password, password_hash) do
           Plug.Conn.put_session(conn, :user_id, id)
-          |> redirect("/") #skicka vidare modifierad conn
+          |> redirect("/fruits") #skicka vidare modifierad conn
         else
-          redirect(conn, "/")
+          redirect(conn, "/fruits")
         end
     end
   end
 
   def logout(conn) do
     Plug.Conn.configure_session(conn, drop: true) #tömmer sessionen
-    |> redirect("/")
+    |> redirect("/fruits")
   end
+
+  # def create(conn, params) do
+  # 	#pseudocode
+  # 	# in db table users with password_hash CHAR(60)
+  # 	# hashed_password = Bcrypt.hash_pwd_salt(params["password"])
+  #  	# Postgrex.query!(DB, "INSERT INTO users (username, password_hash) VALUES ($1, $2)", [params["username"], hashed_password], [pool: DBConnection.ConnectionPool])
+  #  	# redirect(conn, "/fruits")
+  # end
 
   defp redirect(conn, url),
     do: Plug.Conn.put_resp_header(conn, "location", url) |> send_resp(303, "")
-
-  def create_new_user(conn, params) do
-    user = case params["file"] do
-      nil -> fn () ->
-          Postgrex.query!(DB, "INSERT INTO Users (name, username, type, password_hash) VALUES ($1, $2, $3, $4) RETURNING id", [params["name"], params["user_name"], 1, Tuple.to_list(Map.fetch(Bcrypt.add_hash(params["password"]), :password_hash)) |> Enum.at(1)], pool: DBConnection.ConnectionPool) end
-      _  -> fn () ->
-        Postgrex.query!(DB, "INSERT INTO Users (name, username, type, password_hash, img) VALUES ($1, $2, $3, $4, $5) RETURNING id", [params["name"], params["user_name"], 0, Tuple.to_list(Map.fetch(Bcrypt.add_hash(params["password"]), :password_hash)) |> Enum.at(1), User.save_img(params)], pool: DBConnection.ConnectionPool) end
-      end
-
-      [[user_id]] = user.().rows
-
-      Enum.map params["school"], fn(x) ->
-        Postgrex.query!(DB, "INSERT INTO User_School_id (user_id, school_id) VALUES ($1, $2)", [user_id, String.to_integer(x)], pool: DBConnection.ConnectionPool)
-      end
-    redirect(conn, "/users")
-  end
 end

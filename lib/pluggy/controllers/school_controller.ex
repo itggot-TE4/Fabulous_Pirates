@@ -19,12 +19,12 @@ defmodule Pluggy.SchoolController do
   def update(conn, id, params) do
     IO.puts"school"
     School.update(id, params)
-    redirect(conn, "/schools")
+    redirect(conn, "/admin")
   end
 
   def delete(conn, params) do
     School.delete(params)
-    redirect(conn, "/schools")
+    redirect(conn, "/admin")
   end
 
   defp redirect(conn, url) do

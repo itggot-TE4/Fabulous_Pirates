@@ -42,8 +42,17 @@ defmodule Pluggy.Router do
   post("/class/new", do: ClassController.create(conn, conn.body_params))
   post("/school/delete", do: SchoolController.delete(conn, conn.body_params))
 
+
+  get("/classes/:id/edit", do: ClassController.edit(conn, id))
+  post("/classes/:id/edit", do: ClassController.update(conn, conn.params["id"], conn.body_params))
+
+
   get("/admin/school/:id/student/new", do: AdminController.new_student_form(conn, id))
   post("/school/:id/student/new", do: StudentController.new(conn, conn.body_params))
+  get("/students/:id/edit", do: StudentController.edit(conn, id))
+  post("/students/:id/edit", do: StudentController.update(conn, conn.params["id"], conn.body_params))
+  post("/students/delete", do: StudentController.delete(conn, conn.body_params))
+
 
   # Class pages
 
@@ -54,7 +63,10 @@ defmodule Pluggy.Router do
   post("/classes/delete", do: ClassController.delete(conn, conn.body_params))
   # should be put /classes/:id, but put/patch/delete are not supported without hidden inputs
   # should be delete /classes/:id, but put/patch/delete are not supported without hidden inputs
-  post("/classes/:id/destroy", do: ClassController.destroy(conn, id))
+  post("/classes/:id/delete", do: ClassController.delete(conn, id))
+
+  get("classes/:id/practice", do: ClassController.practice(conn, id))
+
 
   get("/schools", do: ClassController.index(conn))
   get("/schools/new", do: ClassController.new(conn))
@@ -63,13 +75,12 @@ defmodule Pluggy.Router do
   post("/schools", do: ClassController.create(conn, conn.body_params))
   # should be put /schools/:id, but put/patch/delete are not supported without hidden inputs
   # should be delete /schools/:id, but put/patch/delete are not supported without hidden inputs
-  post("/schools/:id/destroy", do: ClassController.destroy(conn, id))
+  post("/schools/:id/delete", do: ClassController.delete(conn, id))
 
 
   get("/schools/:id/edit", do: ClassController.edit(conn, conn.params["id"]))
   post("/schools/:id/edit", do: ClassController.update(conn, conn.params["id"], conn.body_params))
 
-  get("classes/:id/practice", do: ClassController.practice(conn, id))
 
   get("/school/:id/edit", do: SchoolController.edit(conn, conn.params["id"]))
   post("/school/:id/edit", do: SchoolController.update(conn, conn.params["id"], conn.body_params))

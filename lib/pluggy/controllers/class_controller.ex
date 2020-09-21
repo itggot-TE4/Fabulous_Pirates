@@ -33,13 +33,13 @@ defmodule Pluggy.ClassController do
 
   def delete(conn, params) do
     Class.delete(params)
-    redirect(conn, "/classes")
+    redirect(conn, "/admin")
   end
 
 
-  def destroy(conn, id) do
+  def delete(conn, id) do
     Class.delete(id)
-    redirect(conn, "/classes")
+    redirect(conn, "/admin")
   end
 
   defp redirect(conn, url) do

@@ -24,19 +24,31 @@ defmodule Pluggy.Student do
     |> to_struct_list()
   end
 
-
   def update(id, params) do
     name = params["name"]
-    class_id = params["class_id"]
     id = String.to_integer(id)
 
     Postgrex.query!(
       DB,
-      "UPDATE Students SET student_name = $1, class_id = $2 WHERE id = $3",
-      [name, class_id, id],
+      "UPDATE Students SET student_name = $1 WHERE id = $2",
+      [name, id],
       pool: DBConnection.ConnectionPool
     )
   end
+
+  # def update(id, params) do
+  #   name = params["name"]
+  #   class_id = params["class_id"]
+  #   img = params["img"]
+  #   id = String.to_integer(id)
+
+  #   Postgrex.query!(
+  #     DB,
+  #     "UPDATE Students SET student_name = $1, class_id = $2, img = $3 WHERE id = $4",
+  #     [name, class_id, img, id],
+  #     pool: DBConnection.ConnectionPool
+  #   )
+  # end
 
   def create(params) do
     name = params["name"]
@@ -48,7 +60,8 @@ defmodule Pluggy.Student do
     )
   end
 
-  def delete(id) do
+  def delete(params) do
+    id = params["id"]
     Postgrex.query!(DB, "DELETE FROM Students WHERE id = $1", [String.to_integer(id)],
       pool: DBConnection.ConnectionPool
     )

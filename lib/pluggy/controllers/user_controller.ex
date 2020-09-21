@@ -11,7 +11,7 @@ defmodule Pluggy.UserController do
 
      #Bör antagligen flytta SQL-anropet till user-model (t.ex User.find)
     result =
-      Postgrex.query!(DB, "SELECT id, password_hash FROM users WHERE username = $1", [username],
+      Postgrex.query!(DB, "SELECT * FROM users WHERE username = $1", [username],
         pool: DBConnection.ConnectionPool
       )
 
@@ -22,7 +22,7 @@ defmodule Pluggy.UserController do
         redirect(conn, "/")
       # user with that username exists
       _ ->
-        [[id, password_hash]] = result.rows
+        [%User{id, password_hash}] = result.rows
 
         # make sure password is correct
         if Bcrypt.verify_pass(password, password_hash) do
@@ -39,23 +39,15 @@ defmodule Pluggy.UserController do
     |> redirect("/")
   end
 
-  def login_form(conn) do
-    send_resp(conn, 200, srender("users/login", [user: User.get_current(conn)]))
-  end
-
   defp redirect(conn, url),
     do: Plug.Conn.put_resp_header(conn, "location", url) |> send_resp(303, "")
-
-  def new_user_form(conn) do
-    send_resp(conn, 200, srender("users/new", [user: User.get_current(conn), schools: School.all()]))
-  end
 
   def create_new_user(conn, params) do
     user = case params["file"] do
       nil -> fn () ->
-          Postgrex.query!(DB, "INSERT INTO Users (name, username, type, password_hash) VALUES ($1, $2, $3, $4) RETURNING id", [params["name"], params["user_name"], "Admin", Tuple.to_list(Map.fetch(Bcrypt.add_hash(params["password"]), :password_hash)) |> Enum.at(1)], pool: DBConnection.ConnectionPool) end
+          Postgrex.query!(DB, "INSERT INTO Users (name, username, type, password_hash) VALUES ($1, $2, $3, $4) RETURNING id", [params["name"], params["user_name"], 1, Tuple.to_list(Map.fetch(Bcrypt.add_hash(params["password"]), :password_hash)) |> Enum.at(1)], pool: DBConnection.ConnectionPool) end
       _  -> fn () ->
-        Postgrex.query!(DB, "INSERT INTO Users (name, username, type, password_hash, img) VALUES ($1, $2, $3, $4, $5) RETURNING id", [params["name"], params["user_name"], "Admin", Tuple.to_list(Map.fetch(Bcrypt.add_hash(params["password"]), :password_hash)) |> Enum.at(1), User.save_img(params)], pool: DBConnection.ConnectionPool) end
+        Postgrex.query!(DB, "INSERT INTO Users (name, username, type, password_hash, img) VALUES ($1, $2, $3, $4, $5) RETURNING id", [params["name"], params["user_name"], 0, Tuple.to_list(Map.fetch(Bcrypt.add_hash(params["password"]), :password_hash)) |> Enum.at(1), User.save_img(params)], pool: DBConnection.ConnectionPool) end
       end
 
       [[user_id]] = user.().rows

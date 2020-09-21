@@ -1,3 +1,0 @@
-form method="POST" action="/school/new"
-    input type="text" name="name" placeholder="School Name"
-    button type="submit" Create

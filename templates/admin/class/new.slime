@@ -1,6 +1,0 @@
-form method="POST" action="/class/new"
-    input type="text" name="name" placeholder="Class Name"
-    select name="school_id"
-        = for school <- schools do
-            option value="#{school.id}" #{school.school_name}
-    button type="submit" Create

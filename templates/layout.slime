@@ -1,7 +1,7 @@
 doctype html
 html
     head
-        title Welcome to Pluggy
+        title What´s Their Face
         link rel="stylesheet" type="text/css" href="/main.css"
     body
         .wrapper

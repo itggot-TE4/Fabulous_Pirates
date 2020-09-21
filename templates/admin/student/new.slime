@@ -1,7 +1,0 @@
-form method="POST" action="/school/#{school_id}/student/new" enctype="multipart/form-data"
-    input type="text" name="name" placeholder="Student Name" required="true"
-    input type="file" name="file" required="true"
-    select name="class_id"
-        = for class <- classes do
-            option value="#{class.id}" #{class.class_name}
-    button type="submit" Create

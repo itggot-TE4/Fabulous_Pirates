@@ -1,4 +1,0 @@
-h1 Edit #{student.student_name}
-form action="/students/#{student.id}/edit" method="post" 
-  input name="name" type="text" value="#{student.student_name}" /
-  button type="submit" Update

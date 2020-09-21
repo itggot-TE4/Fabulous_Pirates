@@ -1,0 +1,18 @@
+
+
+
+= for student <- students do
+    .
+        p #{student.name}
+        a href="/student/#{student.id}/edit"
+            button Edit
+        
+        a href="/student/#{student.id}/delete"
+            button Delete
+a href="/student/#{student.id}/delete"
+    button Add new student
+
+
+
+    
+

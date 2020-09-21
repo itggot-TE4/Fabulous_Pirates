@@ -14,15 +14,15 @@ defmodule Mix.Tasks.Seed do
     Postgrex.query!(DB, "DROP TABLE IF EXISTS users", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS schools", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "DROP TABLE IF EXISTS students", [], pool: DBConnection.ConnectionPool)
-    Postgrex.query!(DB, "DROP TABLE IF EXISTS user_school_id", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "DROP TABLE IF EXISTS a_id", [], pool: DBConnection.ConnectionPool)
   end
 
   defp create_tables() do
     IO.puts("Creating tables")
     Postgrex.query!(DB, "Create TABLE Users (id SERIAL, name VARCHAR(255) NOT NULL, username VARCHAR(255) UNIQUE NOT NULL, type VARCHAR(255) NOT NULL, password_hash VARCHAR(255) NOT NULL, img VARCHAR(255))", [], pool: DBConnection.ConnectionPool)
-    Postgrex.query!(DB, "Create TABLE Schools (id SERIAL, school_name VARCHAR(255) NOT NULL)", [], pool: DBConnection.ConnectionPool)
-    Postgrex.query!(DB, "Create TABLE Classes (id SERIAL, class_name VARCHAR(255) NOT NULL, school_id INTEGER NOT NULL)", [], pool: DBConnection.ConnectionPool)
-    Postgrex.query!(DB, "Create TABLE Students (id SERIAL, student_name VARCHAR(255) NOT NULL, class_id INTEGER NOT NULL, img VARCHAR(255))", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "Create TABLE Schools (id SERIAL, name VARCHAR(255) NOT NULL)", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "Create TABLE Classes (id SERIAL, name VARCHAR(255) NOT NULL, school_id INTEGER NOT NULL)", [], pool: DBConnection.ConnectionPool)
+    Postgrex.query!(DB, "Create TABLE Students (id SERIAL, name VARCHAR(255) NOT NULL, class_id INTEGER NOT NULL, img VARCHAR(255))", [], pool: DBConnection.ConnectionPool)
     Postgrex.query!(DB, "Create TABLE User_School_id (user_id INTEGER NOT NULL, school_id  INTEGER NOT NULL)", [], pool: DBConnection.ConnectionPool)
   end
 

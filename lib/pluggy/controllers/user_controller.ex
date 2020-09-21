@@ -1,6 +1,7 @@
 defmodule Pluggy.UserController do
-  # import Pluggy.Template, only: [render: 2] #det här exemplet renderar inga templates
   import Plug.Conn, only: [send_resp: 3]
+  import Pluggy.Template, only: [srender: 2, srender: 1]
+
 
   def login(conn, params) do
     username = params["username"]
@@ -15,7 +16,7 @@ defmodule Pluggy.UserController do
     case result.num_rows do
       # no user with that username
       0 ->
-        redirect(conn, "/fruits")
+        redirect(conn, "/")
       # user with that username exists
       _ ->
         [[id, password_hash]] = result.rows
@@ -23,16 +24,20 @@ defmodule Pluggy.UserController do
         # make sure password is correct
         if Bcrypt.verify_pass(password, password_hash) do
           Plug.Conn.put_session(conn, :user_id, id)
-          |> redirect("/fruits") #skicka vidare modifierad conn
+          |> redirect("/") #skicka vidare modifierad conn
         else
-          redirect(conn, "/fruits")
+          redirect(conn, "/")
         end
     end
   end
 
   def logout(conn) do
     Plug.Conn.configure_session(conn, drop: true) #tömmer sessionen
-    |> redirect("/fruits")
+    |> redirect("/")
+  end
+
+  def index(conn) do
+    send_resp(conn, 200, srender("index"))
   end
 
   # def create(conn, params) do

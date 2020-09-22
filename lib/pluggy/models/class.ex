@@ -1,7 +1,7 @@
 defmodule Pluggy.Class do
   defstruct(id: nil, name: "", img: "", school_id: nil)
 
-  require Pluggy.Generic
+  import Pluggy.Generic
   alias Pluggy.Class
 
   def get(id) do

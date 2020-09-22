@@ -1,7 +1,8 @@
 defmodule Pluggy.UserController do
   import Plug.Conn, only: [send_resp: 3]
   import Pluggy.Template, only: [srender: 2, srender: 1]
-
+  import Pluggy.GenericController
+  alias Pluggy.User
 
   def login(conn, params) do
     username = params["username"]
@@ -36,9 +37,9 @@ defmodule Pluggy.UserController do
     |> redirect("/")
   end
 
-  def index(conn) do
-    send_resp(conn, 200, srender("index"))
-  end
+  def index(conn), do: show(conn, "index")
+
+  def show_login(conn), do: show(conn, "login")
 
   # def create(conn, params) do
   # 	#pseudocode

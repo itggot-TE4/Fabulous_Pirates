@@ -1,0 +1,2 @@
+
+  = slime.("templates/partials/new_partial.slime", [entity: school, entity_name: "schools"])

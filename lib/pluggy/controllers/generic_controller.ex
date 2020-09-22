@@ -1,48 +1,58 @@
 defmodule Pluggy.GenericController do
   require IEx
 
-  alias Pluggy.Generic
+  alias Pluggy.GenericController
   alias Pluggy.User
   import Pluggy.Template, only: [render: 2, srender: 2]
   import Plug.Conn, only: [send_resp: 3]
 
-  def index(conn) do
-    # get user if logged in
-    session_user = conn.private.plug_session["user_id"]
-
-    current_user =
-      case session_user do
-        nil -> nil
-        _ -> User.get(session_user)
-      end
-
-    #srender använder slime
-    send_resp(conn, 200, srender("fruits/index", fruits: Fruit.all(), user: current_user))
-  end
-
-  #render använder eex
-  def new(conn), do: send_resp(conn, 200, render("fruits/new", []))
-  def show(conn, id), do: send_resp(conn, 200, render("fruits/show", fruit: Fruit.get(id)))
-  def edit(conn, id), do: send_resp(conn, 200, render("fruits/edit", fruit: Fruit.get(id)))
-
-  def create(conn, params) do
-    Fruit.create(params)
-    case params["file"] do
-      nil -> IO.puts("No file uploaded")  #do nothing
-        # move uploaded file from tmp-folder
-      _  -> File.rename(params["file"].path, "priv/static/uploads/#{params["file"].filename}")
+  def get_current_user(conn) do
+  # get user if logged in
+  session_user = conn.private.plug_session["user_id"]
+    case session_user do
+      nil -> nil
+      _ -> User.get(session_user)
     end
-    redirect(conn, "/fruits")
   end
 
-  def update(conn, id, params) do
-    Fruit.update(id, params)
-    redirect(conn, "/fruits")
+  # Displays the given slime file with included params
+  defp show_things(conn, path, params), do: send_resp(conn, 200, srender(path, params))
+
+  def show(conn, path, params \\ []), do: show_things(conn, path, params)
+  def index(conn, path, params \\ []), do: show_things(conn, path, params)
+  def new(conn, path, params \\ []), do: show_things(conn, path, params)
+  def edit(conn, path, params \\ []), do: show_things(conn, path, params)
+
+  def create(conn, redirect_path, params, table, module) do
+    # FIXME: I do NOT support image uploads
+    # fun = case params["file"] do
+    #   nil -> fn(_) -> nil end  #do nothing
+    #   _  -> save_img(params)
+    # end
+    # case fun.() do
+    #   nil -> nil
+    #   _ -> parameters["img"] = fun.()
+    # end
+
+    module.create(params, table)
+    redirect(conn, redirect_path)
   end
 
-  def destroy(conn, id) do
-    Fruit.delete(id)
-    redirect(conn, "/fruits")
+  def save_img(params) do
+    name2 = String.split(params["file"].filename, ".")
+    name = "#{List.first(name2)}#{String.slice(to_string(DateTime.utc_now), 0..18)}.#{List.last(name2)}" |> String.split |> Enum.join("")
+    File.rename(params["file"].path, "priv/static/uploads/#{String.replace(name, "~r\s", "")}")
+    name
+  end
+
+  def update(conn, redirect_path, id, params, table, module) do
+    module.update(id, params, table)
+    redirect(conn, redirect_path)
+  end
+
+  def destroy(conn, redirect_path, id, table, module) do
+    module.delete(id, table)
+    redirect(conn, redirect_path)
   end
 
   defp redirect(conn, url) do

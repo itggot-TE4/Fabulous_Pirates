@@ -3,7 +3,7 @@ defmodule Pluggy.Router do
   use Plug.Debugger
 
 
-
+  alias Pluggy.GenericController
   alias Pluggy.UserController
 
 

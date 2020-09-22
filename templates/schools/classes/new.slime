@@ -1,2 +1,2 @@
 
-  = slime.("templates/partials/new_partial.slime", [entity: class, entity_name: "classes"])
+  = slime.("partials/new_partial", [entity: class, entity_name: path])

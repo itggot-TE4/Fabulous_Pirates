@@ -1,5 +1,8 @@
 h1 create new #{entity_name}
 form method="post" action="/#{entity_name}/new" 
-    = for {k, v} <- entity do
-        input name="#{Atom.to_string(k)}" type="text" 
-  button type="submit" create
+    - [_ | keys] = Map.keys(entity)
+    = for k <- keys do
+        = unless (k == :id) do 
+            input name="#{Atom.to_string(k)}" type="text" 
+    button type="submit" create
+

@@ -1,1 +1,1 @@
-  = slime.("templates/partials/edit_partial.slime", [entity: school, entity_name: "schools"])
+  = slime.("partials/edit_partial", [entity: school, entity_name: path])

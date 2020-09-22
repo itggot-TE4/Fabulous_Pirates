@@ -3,9 +3,17 @@ defmodule Pluggy.Router do
   use Plug.Debugger
 
 
-
+  alias Pluggy.GenericController
+  alias Pluggy.ClassController
   alias Pluggy.UserController
+  alias Pluggy.SchoolController
+  alias Pluggy.StudentController
 
+
+  alias Pluggy.User
+  alias Pluggy.School
+  alias Pluggy.Class
+  alias Pluggy.Student
 
 
   plug(Plug.Static, at: "/", from: :pluggy)
@@ -28,6 +36,12 @@ defmodule Pluggy.Router do
 
   post("/users/login", do: UserController.login(conn, conn.body_params))
   post("/users/logout", do: UserController.logout(conn))
+
+
+  get("/schools/new", do: GenericController.new(conn, "schools/new", [school: struct(School), path: "schools"]))
+  get("/schools/:id/edit", do: GenericController.edit(conn, "schools/edit", [school: School.get(id), path: "schools"]))
+  # get("/school/:id/show", do: )
+
 
   match _ do
     send_resp(conn, 404, "oops")

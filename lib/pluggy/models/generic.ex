@@ -115,8 +115,8 @@ defmodule Pluggy.Generic do
     x = Enum.reduce(rows, [], fn(row, acc) ->
           [Enum.zip(columns, row) |> Enum.into(%{}) | acc]
         end)
-
-    Enum.map(x, fn(row) -> struct(struct_var) |> Map.merge(row) end) |> List.first()
+      Enum.map(x, fn(row) -> struct(struct_var) |> Map.merge(row) end) |> List.first()
+      |> IO.inspect()
   end
 
   def to_struct_list(data, struct), do: to_struct(data, struct) |> Enum.reverse

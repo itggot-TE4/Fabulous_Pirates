@@ -110,6 +110,10 @@ defmodule Pluggy.Generic do
     end
   end
 
+
+  @doc ~S"""
+  Takes a postgrex result struct followed by the module of whitch there is a struct defined
+  """
   def to_struct(%Postgrex.Result{columns: collummns, rows: rows}, struct_var) do
     columns = Enum.map(collummns, fn (e)-> String.to_atom(e) end)
     x = Enum.reduce(rows, [], fn(row, acc) ->

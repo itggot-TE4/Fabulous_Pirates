@@ -21,5 +21,8 @@ defmodule Pluggy.Class do
     |> Generic.to_struct_list(Class)
   end
 
+  def create(params), do: create(params, "classes")
+  def delete(params), do: delete(params, "classes")
+  def update(id, params), do: update(id, params, "classes")
 
 end

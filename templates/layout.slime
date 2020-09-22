@@ -2,6 +2,10 @@ doctype html
 html
     head
         title Welcome to Pluggy
-        link rel="stylesheet" type="text/css" href="/pluggy.css"
+        link rel="stylesheet" type="text/css" href="/main.css"
     body
-    = template
+        .wrapper
+            header
+                a href="/"
+                    h1 What's Their Face v2.1
+            = template

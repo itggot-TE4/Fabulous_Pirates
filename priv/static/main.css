@@ -1,0 +1,59 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.wrapper {
+	background: whitesmoke;
+	min-height: 100vh;
+	display: flex;
+	flex-flow: column;
+}
+
+header a h1 {
+	margin: 0;
+}
+
+header {
+	background: rgb(2, 121, 201);
+	padding: 5px;
+}
+
+header a {
+	text-decoration: none;
+	color: white;
+}
+
+.form {
+	display: grid;
+	grid-template-rows: auto auto auto auto;
+	row-gap: 20px;
+	width: 40vw;
+}
+
+.wrapper {
+	height: 100vh;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.form_with_header {
+	display: grid;
+	grid-template-rows: 4rem auto;
+	text-align: center;
+	row-gap: 10px;
+	padding: 8px;
+	border-radius: 3px;
+	background: white;
+}
+
+.container {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

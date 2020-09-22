@@ -26,3 +26,5 @@ erl_crash.dump
 pluggy-*.tar
 
 /priv/static/uploads/*
+
+mix.lock

@@ -1,0 +1,5 @@
+h1 Edit #{entity_name}
+form method="post" action="/#{entity_name}/#{entity.id}/edit" 
+    = for {k, v} <- entity do
+        input name="#{Atom.to_string(k)}" type="text" value="#{v}" /
+  button type="submit" commit changes

@@ -1,5 +1,5 @@
 defmodule Pluggy.School do
-  defstruct(id: nil, school_name: "", img: "")
+  defstruct(id: nil, name: "", img: "")
 
   require Pluggy.Generic
   alias Pluggy.School
@@ -14,7 +14,7 @@ defmodule Pluggy.School do
   end
 
   def get_by_user_id(user) do
-    Postgrex.query!(DB, "SELECT Schools.id, school_name
+    Postgrex.query!(DB, "SELECT Schools.id, name
     FROM Schools
     JOIN User_School_id ON Schools.id = User_school_id.school_id
     JOIN Users ON Users.id = User_School_id.user_id

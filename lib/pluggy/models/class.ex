@@ -13,7 +13,7 @@ defmodule Pluggy.Class do
   end
 
   def get_by_school_id(id) do
-    Postgrex.query!(DB, "SELECT Classes.id, class_name, school_id
+    Postgrex.query!(DB, "SELECT Classes.id, name, school_id
     FROM Classes
     JOIN Schools
     ON school_id = Schools.id WHERE Schools.id = $1", [String.to_integer(id)],

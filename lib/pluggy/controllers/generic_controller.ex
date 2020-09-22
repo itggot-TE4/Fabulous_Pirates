@@ -17,12 +17,14 @@ defmodule Pluggy.GenericController do
 
   # Displays the given slime file with included params
   defp show_things(conn, path, params), do: send_resp(conn, 200, srender(path, params))
-
   def show(conn, path, params \\ []), do: show_things(conn, path, params)
   def index(conn, path, params \\ []), do: show_things(conn, path, params)
-  def new(conn, path, params \\ []), do: show_things(conn, path, params)
-  def edit(conn, path, params \\ []), do: show_things(conn, path, params)
+  def show_new(conn, path, params \\ []), do: show_things(conn, path, params)
+  def show_edit(conn, path, params \\ []), do: show_things(conn, path, params)
 
+
+
+  def new(conn, redirect_path, params, table, module), do: create(conn, redirect_path, params, table, module)
   def create(conn, redirect_path, params, table, module) do
     # FIXME: I do NOT support image uploads
     # fun = case params["file"] do
@@ -55,7 +57,5 @@ defmodule Pluggy.GenericController do
     redirect(conn, redirect_path)
   end
 
-  defp redirect(conn, url) do
-    Plug.Conn.put_resp_header(conn, "location", url) |> send_resp(303, "")
-  end
+  defp redirect(conn, url), do: Plug.Conn.put_resp_header(conn, "location", url) |> send_resp(303, "")
 end

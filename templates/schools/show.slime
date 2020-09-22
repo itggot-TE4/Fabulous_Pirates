@@ -1,0 +1,5 @@
+h1.center-horizontal #{String.upcase school.name}
+
+container.center-horizontal
+    = for class <- classes do
+        = slime.("partials/box", [entity: class, path: "schools/#{school.id}/classes"])

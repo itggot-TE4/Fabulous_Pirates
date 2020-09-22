@@ -1,1 +1,4 @@
-h1 Yo this is the first page.
+h1.center-horizontal Schools
+container.center-horizontal
+    = for school <- schools do
+        = slime.("partials/box", [entity: school, path: "schools"])

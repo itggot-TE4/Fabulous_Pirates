@@ -1,0 +1,10 @@
+
+- {_, id} = Map.fetch(entity, :id)
+- {_, name} = Map.fetch(entity, :name)
+
+.box
+    a href="/#{path}/#{id}"
+        p= name
+    a href="/#{path}/#{id}/edit" Edit
+    a href="/#{path}/#{id}/delete" Delete
+

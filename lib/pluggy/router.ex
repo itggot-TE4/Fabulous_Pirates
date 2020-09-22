@@ -5,6 +5,7 @@ defmodule Pluggy.Router do
 
   alias Pluggy.GenericController
   alias Pluggy.UserController
+  alias Pluggy.School
 
 
 
@@ -26,7 +27,7 @@ defmodule Pluggy.Router do
   plug(:match)
   plug(:dispatch)
 
-  get("/", do: UserController.index(conn))
+  get("/", do: GenericController.show(conn, "index", schools: School.all()))
 
   get("/login", do: UserController.show_login(conn))
   post("/login", do: UserController.login(conn, conn.body_params))

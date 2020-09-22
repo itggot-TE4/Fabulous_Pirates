@@ -1,7 +1,7 @@
 defmodule Pluggy.Student do
   defstruct(id: nil, name: "", img: "", class_id: nil)
 
-  require Pluggy.Generic
+  import Pluggy.Generic
   alias Pluggy.Student
 
 
@@ -17,7 +17,7 @@ defmodule Pluggy.Student do
     Postgrex.query!(DB, "SELECT * FROM Students WHERE class_id = $1", [String.to_integer(id)],
       pool: DBConnection.ConnectionPool
     )
-    |> Generic.to_struct_list(Student)
+    |> to_struct_list(Student)
   end
 
 end

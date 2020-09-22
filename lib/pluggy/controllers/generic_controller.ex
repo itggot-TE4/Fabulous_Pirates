@@ -1,7 +1,7 @@
-defmodule Pluggy.FruitController do
+defmodule Pluggy.GenericController do
   require IEx
 
-  alias Pluggy.Fruit
+  alias Pluggy.Generic
   alias Pluggy.User
   import Pluggy.Template, only: [render: 2, srender: 2]
   import Plug.Conn, only: [send_resp: 3]

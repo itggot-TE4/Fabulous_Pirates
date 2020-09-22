@@ -3,7 +3,7 @@ defmodule Pluggy.Router do
   use Plug.Debugger
 
 
-  alias Pluggy.FruitController
+
   alias Pluggy.UserController
 
 
@@ -26,8 +26,11 @@ defmodule Pluggy.Router do
   plug(:match)
   plug(:dispatch)
 
-  post("/users/login", do: UserController.login(conn, conn.body_params))
-  post("/users/logout", do: UserController.logout(conn))
+  get("/", do: UserController.index(conn))
+
+  get("/login", do: UserController.show_login(conn))
+  post("/login", do: UserController.login(conn, conn.body_params))
+  post("/logout", do: UserController.logout(conn))
 
   match _ do
     send_resp(conn, 404, "oops")
